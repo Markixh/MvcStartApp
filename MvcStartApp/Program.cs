@@ -1,3 +1,5 @@
+using MvcStartApp.Middleware;
+
 namespace MvcStartApp
 {
     public class Program
@@ -25,6 +27,8 @@ namespace MvcStartApp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<LoggingMiddleware>(app);
 
             app.MapControllerRoute(
                 name: "default",
