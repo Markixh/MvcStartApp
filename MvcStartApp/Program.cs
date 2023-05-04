@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using MvcStartApp.Middleware;
+using MvcStartApp.Models.Db;
 
 namespace MvcStartApp
 {
@@ -8,7 +10,10 @@ namespace MvcStartApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
+            builder.Services.AddSingleton<IBlogRepository, BlogRepository>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
