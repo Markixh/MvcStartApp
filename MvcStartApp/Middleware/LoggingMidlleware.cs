@@ -1,17 +1,21 @@
-﻿namespace MvcStartApp.Middleware
+﻿using MvcStartApp.Models.Db;
+
+namespace MvcStartApp.Middleware
 {
     public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly WebApplication _app;
+        private readonly BlogContext _cont;
 
         /// <summary>
         ///  Middleware-компонент должен иметь конструктор, принимающий RequestDelegate
         /// </summary>
-        public LoggingMiddleware(RequestDelegate next, WebApplication app)
+        public LoggingMiddleware(RequestDelegate next, WebApplication app, BlogContext blogContext)
         {
             _next = next;
             _app = app;
+            _cont = blogContext;
         }
 
         /// <summary>
@@ -42,11 +46,25 @@
         }
 
         /// <summary>
+        ///  Записываем Лог в БД
+        /// </summary>
+        public async Task LogDBAsync(HttpContext context)
+        {
+            LogRepository logRepository = new(_cont);
+            Request request = new()
+            {
+                Url = $"http://{context.Request.Host.Value + context.Request.Path}"
+            };
+            await logRepository.AddLog(request);
+        }
+
+        /// <summary>
         ///  Необходимо реализовать метод Invoke  или InvokeAsync
         /// </summary>
         public async Task InvokeAsync(HttpContext context)
         {            
             LogConsole(context);
+            await LogDBAsync(context);
             await LogFileAsync(context);
 
             // Передача запроса далее по конвейеру

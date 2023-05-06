@@ -9,11 +9,11 @@ namespace MvcStartApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             
             string connection = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
             builder.Services.AddSingleton<IBlogRepository, BlogRepository>();
+            builder.Services.AddSingleton<ILogRepository, LogRepository>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

@@ -7,19 +7,10 @@ namespace MvcStartApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBlogRepository _repo;
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, IBlogRepository repo)
+        
+        public IActionResult Index()
         {
-            _logger = logger;
-            _repo = repo;
-        }
-
-        // Сделаем метод асинхронным
-        public async Task<IActionResult> Index()
-        {
-             return View();
+            return View();
         }
 
         public IActionResult Privacy()

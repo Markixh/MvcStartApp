@@ -19,16 +19,17 @@ namespace MvcStartApp.Controllers
             return View(authors);
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Register(User newUser)
         {
-            // Добавим в базу
             await _repo.AddUser(newUser);
-
-            // Выведем результат
-            Console.WriteLine($"User with id {newUser.Id}, named {newUser.FirstName} was successfully added on {newUser.JoinDate}");
-
-
-            return View();
+            return View(newUser);
         }
     }
 }
