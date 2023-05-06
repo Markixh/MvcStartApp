@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvcStartApp.Models;
-using MvcStartApp.Models.Db;
 using System.Diagnostics;
 
 namespace MvcStartApp.Controllers

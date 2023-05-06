@@ -13,6 +13,9 @@ namespace MvcStartApp.Models.Db
             _context = context;
         }
 
+        /// <summary>
+        /// Добавляем пользователя
+        /// </summary>
         public async Task AddUser(User user)
         {
             user.JoinDate = DateTime.Now;
@@ -27,6 +30,9 @@ namespace MvcStartApp.Models.Db
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Получаем список всех пользователей
+        /// </summary>
         public async Task<User[]> GetUsers()
         {
             // Получим всех активных пользователей

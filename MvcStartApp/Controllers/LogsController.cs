@@ -12,7 +12,9 @@ namespace MvcStartApp.Controllers
             _repo = repo;
         }
         
-        // Сделаем метод асинхронным
+        /// <summary>
+        /// Выводим список запросов
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var reports = await _repo.GetLogs();

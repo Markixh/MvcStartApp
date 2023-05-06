@@ -13,6 +13,9 @@ namespace MvcStartApp.Models.Db
             _context = context;
         }
 
+        /// <summary>
+        /// Добавление запроса в жарнал
+        /// </summary>
         public async Task AddLog(Request request)
         {
             request.Id = Guid.NewGuid();
@@ -27,6 +30,9 @@ namespace MvcStartApp.Models.Db
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Получение всех запросов
+        /// </summary>
         public async Task<Request[]> GetLogs()
         {
             // Получим все запросы
